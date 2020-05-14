@@ -1,0 +1,202 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://merge_sort.gd" type="Script" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+num = 128
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_right = 723.0
+margin_bottom = 135.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Array" type="VBoxContainer" parent="HBoxContainer"]
+margin_right = 128.0
+margin_bottom = 136.0
+
+[node name="Label" type="Label" parent="HBoxContainer/Array"]
+margin_right = 128.0
+margin_bottom = 14.0
+text = "Generate New Array"
+
+[node name="Input" type="HBoxContainer" parent="HBoxContainer/Array"]
+margin_top = 18.0
+margin_right = 128.0
+margin_bottom = 42.0
+
+[node name="Size" type="Label" parent="HBoxContainer/Array/Input"]
+margin_top = 5.0
+margin_right = 26.0
+margin_bottom = 19.0
+text = "Size"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Array/Input"]
+margin_left = 30.0
+margin_right = 88.0
+margin_bottom = 24.0
+
+[node name="Button" type="Button" parent="HBoxContainer/Array"]
+margin_top = 46.0
+margin_right = 128.0
+margin_bottom = 66.0
+text = "Generate"
+
+[node name="Current" type="HBoxContainer" parent="HBoxContainer/Array"]
+margin_top = 70.0
+margin_right = 128.0
+margin_bottom = 94.0
+
+[node name="Size" type="Label" parent="HBoxContainer/Array/Current"]
+margin_top = 5.0
+margin_right = 21.0
+margin_bottom = 19.0
+text = "Cur"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Array/Current"]
+margin_left = 25.0
+margin_right = 83.0
+margin_bottom = 24.0
+text = "-"
+editable = false
+
+[node name="Bench_Button" type="Button" parent="HBoxContainer/Array"]
+margin_top = 98.0
+margin_right = 128.0
+margin_bottom = 118.0
+text = "Benchmark"
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/Array"]
+margin_top = 122.0
+margin_right = 128.0
+margin_bottom = 136.0
+step = 0.0
+
+[node name="GodotBase" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 132.0
+margin_right = 221.0
+margin_bottom = 136.0
+
+[node name="Label" type="Label" parent="HBoxContainer/GodotBase"]
+margin_right = 89.0
+margin_bottom = 14.0
+text = "Array.Sort()"
+
+[node name="GDBaseButton" type="Button" parent="HBoxContainer/GodotBase"]
+margin_top = 18.0
+margin_right = 89.0
+margin_bottom = 38.0
+text = "Perform"
+
+[node name="Label2" type="Label" parent="HBoxContainer/GodotBase"]
+margin_top = 42.0
+margin_right = 89.0
+margin_bottom = 56.0
+text = "Elapsed Time:"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/GodotBase"]
+margin_top = 60.0
+margin_right = 89.0
+margin_bottom = 84.0
+text = "-"
+editable = false
+
+[node name="GDScript" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 225.0
+margin_right = 314.0
+margin_bottom = 136.0
+
+[node name="Label" type="Label" parent="HBoxContainer/GDScript"]
+margin_right = 89.0
+margin_bottom = 14.0
+text = "GDScript"
+
+[node name="GDScriptButton" type="Button" parent="HBoxContainer/GDScript"]
+margin_top = 18.0
+margin_right = 89.0
+margin_bottom = 38.0
+text = "Perform"
+
+[node name="Label2" type="Label" parent="HBoxContainer/GDScript"]
+margin_top = 42.0
+margin_right = 89.0
+margin_bottom = 56.0
+text = "Elapsed Time:"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/GDScript"]
+margin_top = 60.0
+margin_right = 89.0
+margin_bottom = 84.0
+text = "-"
+editable = false
+
+[node name="GDScriptP" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 318.0
+margin_right = 407.0
+margin_bottom = 136.0
+
+[node name="Label" type="Label" parent="HBoxContainer/GDScriptP"]
+margin_right = 89.0
+margin_bottom = 14.0
+text = "GD-2 Threads"
+
+[node name="GDScriptPButton" type="Button" parent="HBoxContainer/GDScriptP"]
+margin_top = 18.0
+margin_right = 89.0
+margin_bottom = 38.0
+text = "Perform"
+
+[node name="Label2" type="Label" parent="HBoxContainer/GDScriptP"]
+margin_top = 42.0
+margin_right = 89.0
+margin_bottom = 56.0
+text = "Elapsed Time:"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/GDScriptP"]
+margin_top = 60.0
+margin_right = 89.0
+margin_bottom = 84.0
+text = "-"
+editable = false
+
+[node name="CS" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 411.0
+margin_right = 500.0
+margin_bottom = 136.0
+
+[node name="Label" type="Label" parent="HBoxContainer/CS"]
+margin_right = 89.0
+margin_bottom = 14.0
+text = "C#"
+
+[node name="CSButton" type="Button" parent="HBoxContainer/CS"]
+margin_top = 18.0
+margin_right = 89.0
+margin_bottom = 38.0
+text = "Perform"
+
+[node name="Label2" type="Label" parent="HBoxContainer/CS"]
+margin_top = 42.0
+margin_right = 89.0
+margin_bottom = 56.0
+text = "Elapsed Time:"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/CS"]
+margin_top = 60.0
+margin_right = 89.0
+margin_bottom = 84.0
+text = "-"
+editable = false
+[connection signal="pressed" from="HBoxContainer/Array/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="HBoxContainer/Array/Bench_Button" to="." method="_on_Bench_Button_pressed"]
+[connection signal="pressed" from="HBoxContainer/GodotBase/GDBaseButton" to="." method="_on_GDBaseButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/GDScript/GDScriptButton" to="." method="_on_GDScriptButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/GDScriptP/GDScriptPButton" to="." method="_on_GDScriptPButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/CS/CSButton" to="." method="_on_CSButton_pressed"]

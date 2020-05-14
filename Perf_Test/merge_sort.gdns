@@ -1,0 +1,5 @@
+[gd_resource type="NativeScript" format=2]
+
+[resource]
+resource_name = "Merge_Sort"
+class_name = "Merge_Sort"
