@@ -30,7 +30,6 @@ public class merge_sort : Node
 
 	ulong end_bench(ulong start_time)
 	{
-		
 		return OS.GetTicksUsec() - start_time;
 	}
 

@@ -167,29 +167,58 @@ margin_bottom = 84.0
 text = "-"
 editable = false
 
-[node name="CS" type="VBoxContainer" parent="HBoxContainer"]
+[node name="CS_to_CS" type="VBoxContainer" parent="HBoxContainer"]
 margin_left = 411.0
 margin_right = 500.0
 margin_bottom = 136.0
 
-[node name="Label" type="Label" parent="HBoxContainer/CS"]
+[node name="Label" type="Label" parent="HBoxContainer/CS_to_CS"]
 margin_right = 89.0
 margin_bottom = 14.0
-text = "C#"
+text = "C# to C#"
 
-[node name="CSButton" type="Button" parent="HBoxContainer/CS"]
+[node name="FullCSButton" type="Button" parent="HBoxContainer/CS_to_CS"]
 margin_top = 18.0
 margin_right = 89.0
 margin_bottom = 38.0
 text = "Perform"
 
-[node name="Label2" type="Label" parent="HBoxContainer/CS"]
+[node name="Label2" type="Label" parent="HBoxContainer/CS_to_CS"]
 margin_top = 42.0
 margin_right = 89.0
 margin_bottom = 56.0
 text = "Elapsed Time:"
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer/CS"]
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/CS_to_CS"]
+margin_top = 60.0
+margin_right = 89.0
+margin_bottom = 84.0
+text = "-"
+editable = false
+
+[node name="GD_to_CS" type="VBoxContainer" parent="HBoxContainer"]
+margin_left = 504.0
+margin_right = 593.0
+margin_bottom = 136.0
+
+[node name="Label" type="Label" parent="HBoxContainer/GD_to_CS"]
+margin_right = 89.0
+margin_bottom = 14.0
+text = "GD to C#"
+
+[node name="CSButton" type="Button" parent="HBoxContainer/GD_to_CS"]
+margin_top = 18.0
+margin_right = 89.0
+margin_bottom = 38.0
+text = "Perform"
+
+[node name="Label2" type="Label" parent="HBoxContainer/GD_to_CS"]
+margin_top = 42.0
+margin_right = 89.0
+margin_bottom = 56.0
+text = "Elapsed Time:"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/GD_to_CS"]
 margin_top = 60.0
 margin_right = 89.0
 margin_bottom = 84.0
@@ -201,4 +230,5 @@ editable = false
 [connection signal="pressed" from="HBoxContainer/GodotBase/GDBaseButton" to="." method="_on_GDBaseButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/GDScript/GDScriptButton" to="." method="_on_GDScriptButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/GDScriptP/GDScriptPButton" to="." method="_on_GDScriptPButton_pressed"]
-[connection signal="pressed" from="HBoxContainer/CS/CSButton" to="." method="_on_CSButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/CS_to_CS/FullCSButton" to="." method="_on_FullCSButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/GD_to_CS/CSButton" to="." method="_on_CSButton_pressed"]

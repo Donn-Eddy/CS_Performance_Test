@@ -1,0 +1,6 @@
+C:\Users\maind\Documents\godot\CS_Performance_Test\Perf_Test\.mono\temp\bin\ExportDebug\Perf Test.dll
+C:\Users\maind\Documents\godot\CS_Performance_Test\Perf_Test\.mono\temp\bin\ExportDebug\Perf Test.pdb
+C:\Users\maind\Documents\godot\CS_Performance_Test\Perf_Test\.mono\temp\obj\ExportDebug\Perf Test.csprojAssemblyReference.cache
+C:\Users\maind\Documents\godot\CS_Performance_Test\Perf_Test\.mono\temp\obj\ExportDebug\Perf Test.csproj.CoreCompileInputs.cache
+C:\Users\maind\Documents\godot\CS_Performance_Test\Perf_Test\.mono\temp\obj\ExportDebug\Perf Test.dll
+C:\Users\maind\Documents\godot\CS_Performance_Test\Perf_Test\.mono\temp\obj\ExportDebug\Perf Test.pdb

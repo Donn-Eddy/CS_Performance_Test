@@ -59,7 +59,8 @@ func run_bench(var blank = null):
 	var control_results_full = []
 	var gd_results_full = []
 	var gd_threads_results_full = []
-	var cs_results_full = []
+	var cs_to_cs_results_full = []
+	var gd_to_cs_results_full = []
 	var iterations = 100
 	var sizes = 15
 	var done_time = 0
@@ -67,7 +68,7 @@ func run_bench(var blank = null):
 
 	var array_sizes = []
 	
-	var inc_val = 100.0 / (sizes * iterations * 4.0)
+	var inc_val = 100.0 / (sizes * iterations * 5.0)
 	progress_bar.step = inc_val
 
 	print("Starting Bench")
@@ -75,7 +76,8 @@ func run_bench(var blank = null):
 		var control_results = []
 		var gd_results = []
 		var gd_threads_results = []
-		var cs_results = []
+		var cs_to_cs_results = []
+		var gd_to_cs_results = []
 		var bench_array_size = pow(2, j)
 		print("Array Size: " + String(bench_array_size))
 		array_sizes.append(bench_array_size)
@@ -102,19 +104,23 @@ func run_bench(var blank = null):
 			progress_bar.value += inc_val
 
 			generate_array(array, bench_array_size)
-			#var data
 			done_time = cs_ms.start_bench(Array(array))
-			#data = cs_ms.Merge_Sort(new_array, 0, new_array.size()-1)
-			# done_time = end_bench()
-			#new_array = Array(array)
-			cs_results.append(done_time)
+			cs_to_cs_results.append(done_time)
+			progress_bar.value += inc_val
+
+			generate_array(array, bench_array_size)
+			new_array = start_bench()
+			cs_ms.Merge_Sort(new_array, 0, new_array.size()-1)
+			done_time = end_bench()
+			gd_to_cs_results.append(done_time);
 			progress_bar.value += inc_val
 
 		control_results_full.append(control_results)
 		gd_results_full.append(gd_results)
 		gd_threads_results_full.append(gd_threads_results)
-		cs_results_full.append(cs_results)
-
+		cs_to_cs_results_full.append(cs_to_cs_results)
+		gd_to_cs_results_full.append(gd_to_cs_results)
+		
 	#I should make this it's own method... Oh well.
 	#Prepares the .csv file.
 	var file_string = "Test_Name"
@@ -135,10 +141,15 @@ func run_bench(var blank = null):
 		file_string += "\n" + String(array_sizes[i])
 		for gd_threaded_result in gd_threads_results_full[i]:
 			file_string += "," + String(gd_threaded_result)
-	file_string += "\nCS:"
-	for i in range(0,cs_results_full.size()):
+	file_string += "\nCS_to_CS:"
+	for i in range(0,cs_to_cs_results_full.size()):
 		file_string += "\n" + String(array_sizes[i])
-		for cs_result in cs_results_full[i]:
+		for cs_result in cs_to_cs_results_full[i]:
+			file_string += "," + String(cs_result)
+	file_string += "\nGD_to_CS:"
+	for i in range(0,gd_to_cs_results_full.size()):
+		file_string += "\n" + String(array_sizes[i])
+		for cs_result in gd_to_cs_results_full[i]:
 			file_string += "," + String(cs_result)
 
 	var file = File.new()
@@ -173,14 +184,20 @@ func _on_GDScriptButton_pressed():
 	
 	$HBoxContainer/GDScript/LineEdit.text = str(end_time-start_time)
 
+func _on_FullCSButton_pressed():
+	var new_array = Array(array)
+	var	done_time = cs_ms.start_bench(Array(array))
+	is_sorted(new_array)
+	$HBoxContainer/CS_to_CS/LineEdit.text = str(done_time)
+
 func _on_CSButton_pressed():
 	var new_array = Array(array)
 	var start_time = OS.get_ticks_usec()
-	new_array = Array(cs_ms.Merge_Sort(new_array, 0, new_array.size()-1))
+	new_array = cs_ms.Merge_Sort(new_array, 0, new_array.size()-1)
 	var end_time = OS.get_ticks_usec()
 	is_sorted(new_array)
 	
-	$HBoxContainer/CS/LineEdit.text = str(end_time-start_time)
+	$HBoxContainer/GD_to_CS/LineEdit.text = str(end_time-start_time)
 
 func _on_GDScriptPButton_pressed():
 	var new_array = Array(array)
