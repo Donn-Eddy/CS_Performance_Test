@@ -1,6 +1,0 @@
-C:\Users\maind\OneDrive\Documents\Perf_Test\.mono\temp\bin\Tools\Perf Test.dll
-C:\Users\maind\OneDrive\Documents\Perf_Test\.mono\temp\bin\Tools\Perf Test.pdb
-C:\Users\maind\OneDrive\Documents\Perf_Test\.mono\temp\obj\Tools\Perf Test.csprojAssemblyReference.cache
-C:\Users\maind\OneDrive\Documents\Perf_Test\.mono\temp\obj\Tools\Perf Test.csproj.CoreCompileInputs.cache
-C:\Users\maind\OneDrive\Documents\Perf_Test\.mono\temp\obj\Tools\Perf Test.dll
-C:\Users\maind\OneDrive\Documents\Perf_Test\.mono\temp\obj\Tools\Perf Test.pdb

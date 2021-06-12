@@ -12,6 +12,7 @@ __meta__ = {
 num = 128
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
+anchor_bottom = 0.00166667
 margin_right = 723.0
 margin_bottom = 135.0
 __meta__ = {
@@ -194,6 +195,7 @@ margin_right = 89.0
 margin_bottom = 84.0
 text = "-"
 editable = false
+
 [connection signal="pressed" from="HBoxContainer/Array/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/Array/Bench_Button" to="." method="_on_Bench_Button_pressed"]
 [connection signal="pressed" from="HBoxContainer/GodotBase/GDBaseButton" to="." method="_on_GDBaseButton_pressed"]

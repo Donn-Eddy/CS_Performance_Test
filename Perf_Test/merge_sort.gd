@@ -102,11 +102,11 @@ func run_bench(var blank = null):
 			progress_bar.value += inc_val
 
 			generate_array(array, bench_array_size)
-			var data
-			new_array = start_bench()
-			data = cs_ms.Merge_Sort(new_array, 0, new_array.size()-1)
-			done_time = end_bench()
-			new_array = Array(data)
+			#var data
+			done_time = cs_ms.start_bench(Array(array))
+			#data = cs_ms.Merge_Sort(new_array, 0, new_array.size()-1)
+			# done_time = end_bench()
+			#new_array = Array(array)
 			cs_results.append(done_time)
 			progress_bar.value += inc_val
 

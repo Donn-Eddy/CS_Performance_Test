@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Threading;
+using static Godot.GD;
 
 public class merge_sort : Node
 {
@@ -18,7 +19,22 @@ public class merge_sort : Node
 //  {
 //      
 //  }
-	public object Merge_Sort(int[] array, int p, int r){
+
+	//For benchmarking
+	ulong start_bench(int[] array)
+	{
+		ulong start_time = OS.GetTicksUsec();
+		array = Merge_Sort(array, 0, (array.Length-1));
+		return end_bench(start_time);
+	}
+
+	ulong end_bench(ulong start_time)
+	{
+		
+		return OS.GetTicksUsec() - start_time;
+	}
+
+	public int[] Merge_Sort(int[] array, int p, int r){
         if(p<r){
 			int q = (p+r)/2;
 			Merge_Sort(array, p, q);

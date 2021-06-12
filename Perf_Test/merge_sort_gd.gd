@@ -62,8 +62,7 @@ static func Merge(var a: Array, var p, var q, var r):
 	right.resize(n2+1)
 
 
-	var i = 0
-	var j = 0
+
 	for i in range(n1):
 		left[i] = a[p+i]
 	for j in range(1, n2+1):
@@ -71,8 +70,8 @@ static func Merge(var a: Array, var p, var q, var r):
 	left[n1] = INF
 	right[n2] = INF
 
-	i = 0
-	j = 0
+	var i = 0
+	var j = 0
 	for k in range(p,r+1):
 		if left[i] <= right[j]:
 			a[k] = left[i]

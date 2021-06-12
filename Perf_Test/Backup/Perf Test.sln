@@ -1,14 +1,12 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30907.101
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Perf Test", "Perf Test.csproj", "{B1ED7E84-1F06-45D8-8DCF-7DD89688D557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		ExportDebug|Any CPU = ExportDebug|Any CPU
-		ExportRelease|Any CPU = ExportRelease|Any CPU
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{B1ED7E84-1F06-45D8-8DCF-7DD89688D557}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -17,11 +15,5 @@ Global
 		{B1ED7E84-1F06-45D8-8DCF-7DD89688D557}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{B1ED7E84-1F06-45D8-8DCF-7DD89688D557}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{B1ED7E84-1F06-45D8-8DCF-7DD89688D557}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {19A09F7A-EFE9-4C4D-9D5F-DC93045BE3BF}
 	EndGlobalSection
 EndGlobal

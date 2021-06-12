@@ -4,9 +4,178 @@
         <name>GodotSharpEditor</name>
     </assembly>
     <members>
+        <member name="T:Godot.EditorExportPlugin">
+            <summary>
+            <para>Editor export plugins are automatically activated whenever the user exports the project. Their most common use is to determine what files are being included in the exported project. For each plugin, <see cref="M:Godot.EditorExportPlugin._ExportBegin(System.String[],System.Boolean,System.String,System.Int32)"/> is called at the beginning of the export process and then <see cref="M:Godot.EditorExportPlugin._ExportFile(System.String,System.String,System.String[])"/> is called for each exported file.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin._ExportBegin(System.String[],System.Boolean,System.String,System.Int32)">
+            <summary>
+            <para>Virtual method to be overridden by the user. It is called when the export starts and provides all information about the export. <c>features</c> is the list of features for the export, <c>is_debug</c> is <c>true</c> for debug builds, <c>path</c> is the target path for the exported project. <c>flags</c> is only used when running a runnable profile, e.g. when using native run on Android.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin._ExportEnd">
+            <summary>
+            <para>Virtual method to be overridden by the user. Called when the export is finished.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin._ExportFile(System.String,System.String,System.String[])">
+            <summary>
+            <para>Virtual method to be overridden by the user. Called for each exported file, providing arguments that can be used to identify the file. <c>path</c> is the path of the file, <c>type</c> is the <see cref="T:Godot.Resource"/> represented by the file (e.g. <see cref="T:Godot.PackedScene"/>) and <c>features</c> is the list of features for the export.</para>
+            <para>Calling <see cref="M:Godot.EditorExportPlugin.Skip"/> inside this callback will make the file not included in the export.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.AddSharedObject(System.String,System.String[])">
+            <summary>
+            <para>Adds a shared object with the given <c>tags</c> and destination <c>path</c>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.AddIosProjectStaticLib(System.String)">
+            <summary>
+            <para>Adds a static lib from the given <c>path</c> to the iOS project.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.AddFile(System.String,System.Byte[],System.Boolean)">
+            <summary>
+            <para>Adds a custom file to be exported. <c>path</c> is the virtual path that can be used to load the file, <c>file</c> is the binary data of the file. If <c>remap</c> is <c>true</c>, file will not be exported, but instead remapped to the given <c>path</c>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.AddIosFramework(System.String)">
+            <summary>
+            <para>Adds a static library (*.a) or dynamic library (*.dylib, *.framework) to Linking Phase in iOS's Xcode project.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.AddIosEmbeddedFramework(System.String)">
+            <summary>
+            <para>Adds a dynamic library (*.dylib, *.framework) to Linking Phase in iOS's Xcode project and embeds it into resulting binary.</para>
+            <para>Note: For static libraries (*.a) works in same way as <see cref="M:Godot.EditorExportPlugin.AddIosFramework(System.String)"/>.</para>
+            <para>This method should not be used for System libraries as they are already present on the device.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.AddIosPlistContent(System.String)">
+            <summary>
+            <para>Adds content for iOS Property List files.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.AddIosLinkerFlags(System.String)">
+            <summary>
+            <para>Adds linker flags for the iOS export.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.AddIosBundleFile(System.String)">
+            <summary>
+            <para>Adds an iOS bundle file from the given <c>path</c> to the exported project.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.AddIosCppCode(System.String)">
+            <summary>
+            <para>Adds a C++ code to the iOS export. The final code is created from the code appended by each active export plugin.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorExportPlugin.Skip">
+            <summary>
+            <para>To be called inside <see cref="M:Godot.EditorExportPlugin._ExportFile(System.String,System.String,System.String[])"/>. Skips the current file, so it's not included in the export.</para>
+            </summary>
+        </member>
+        <member name="T:Godot.EditorFeatureProfile">
+            <summary>
+            <para>An editor feature profile can be used to disable specific features of the Godot editor. When disabled, the features won't appear in the editor, which makes the editor less cluttered. This is useful in education settings to reduce confusion or when working in a team. For example, artists and level designers could use a feature profile that disables the script editor to avoid accidentally making changes to files they aren't supposed to edit.</para>
+            <para>To manage editor feature profiles visually, use Editor &gt; Manage Feature Profiles... at the top of the editor window.</para>
+            </summary>
+        </member>
+        <member name="F:Godot.EditorFeatureProfile.Feature.Feature3d">
+            <summary>
+            <para>The 3D editor. If this feature is disabled, the 3D editor won't display but 3D nodes will still display in the Create New Node dialog.</para>
+            </summary>
+        </member>
+        <member name="F:Godot.EditorFeatureProfile.Feature.Script">
+            <summary>
+            <para>The Script tab, which contains the script editor and class reference browser. If this feature is disabled, the Script tab won't display.</para>
+            </summary>
+        </member>
+        <member name="F:Godot.EditorFeatureProfile.Feature.AssetLib">
+            <summary>
+            <para>The AssetLib tab. If this feature is disabled, the AssetLib tab won't display.</para>
+            </summary>
+        </member>
+        <member name="F:Godot.EditorFeatureProfile.Feature.SceneTree">
+            <summary>
+            <para>Scene tree editing. If this feature is disabled, the Scene tree dock will still be visible but will be read-only.</para>
+            </summary>
+        </member>
+        <member name="F:Godot.EditorFeatureProfile.Feature.NodeDock">
+            <summary>
+            <para>The Node dock. If this feature is disabled, signals and groups won't be visible and modifiable from the editor.</para>
+            </summary>
+        </member>
+        <member name="F:Godot.EditorFeatureProfile.Feature.FilesystemDock">
+            <summary>
+            <para>The FileSystem dock. If this feature is disabled, the FileSystem dock won't be visible.</para>
+            </summary>
+        </member>
+        <member name="F:Godot.EditorFeatureProfile.Feature.ImportDock">
+            <summary>
+            <para>The Import dock. If this feature is disabled, the Import dock won't be visible.</para>
+            </summary>
+        </member>
         <member name="F:Godot.EditorFeatureProfile.Feature.Max">
             <summary>
             <para>Represents the size of the <see cref="T:Godot.EditorFeatureProfile.Feature"/> enum.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.SetDisableClass(System.String,System.Boolean)">
+            <summary>
+            <para>If <c>disable</c> is <c>true</c>, disables the class specified by <c>class_name</c>. When disabled, the class won't appear in the Create New Node dialog.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.IsClassDisabled(System.String)">
+            <summary>
+            <para>Returns <c>true</c> if the class specified by <c>class_name</c> is disabled. When disabled, the class won't appear in the Create New Node dialog.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.SetDisableClassEditor(System.String,System.Boolean)">
+            <summary>
+            <para>If <c>disable</c> is <c>true</c>, disables editing for the class specified by <c>class_name</c>. When disabled, the class will still appear in the Create New Node dialog but the inspector will be read-only when selecting a node that extends the class.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.IsClassEditorDisabled(System.String)">
+            <summary>
+            <para>Returns <c>true</c> if editing for the class specified by <c>class_name</c> is disabled. When disabled, the class will still appear in the Create New Node dialog but the inspector will be read-only when selecting a node that extends the class.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.SetDisableClassProperty(System.String,System.String,System.Boolean)">
+            <summary>
+            <para>If <c>disable</c> is <c>true</c>, disables editing for <c>property</c> in the class specified by <c>class_name</c>. When a property is disabled, it won't appear in the inspector when selecting a node that extends the class specified by <c>class_name</c>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.IsClassPropertyDisabled(System.String,System.String)">
+            <summary>
+            <para>Returns <c>true</c> if <c>property</c> is disabled in the class specified by <c>class_name</c>. When a property is disabled, it won't appear in the inspector when selecting a node that extends the class specified by <c>class_name</c>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.SetDisableFeature(Godot.EditorFeatureProfile.Feature,System.Boolean)">
+            <summary>
+            <para>If <c>disable</c> is <c>true</c>, disables the editor feature specified in <c>feature</c>. When a feature is disabled, it will disappear from the editor entirely.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.IsFeatureDisabled(Godot.EditorFeatureProfile.Feature)">
+            <summary>
+            <para>Returns <c>true</c> if the <c>feature</c> is disabled. When a feature is disabled, it will disappear from the editor entirely.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.GetFeatureName(Godot.EditorFeatureProfile.Feature)">
+            <summary>
+            <para>Returns the specified <c>feature</c>'s human-readable name.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.SaveToFile(System.String)">
+            <summary>
+            <para>Saves the editor feature profile to a file in JSON format. It can then be imported using the feature profile manager's Import button or the <see cref="M:Godot.EditorFeatureProfile.LoadFromFile(System.String)"/> button.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFeatureProfile.LoadFromFile(System.String)">
+            <summary>
+            <para>Loads an editor feature profile from a file. The file must follow the JSON format obtained by using the feature profile manager's Export button or the <see cref="M:Godot.EditorFeatureProfile.SaveToFile(System.String)"/> method.</para>
             </summary>
         </member>
         <member name="F:Godot.EditorFileDialog.DisplayModeEnum.Thumbnails">
@@ -123,6 +292,7 @@
         <member name="T:Godot.EditorFileSystem">
             <summary>
             <para>This object holds information of all resources in the filesystem, their types, etc.</para>
+            <para>Note: This class shouldn't be instantiated directly. Instead, access the singleton using <see cref="M:Godot.EditorInterface.GetResourceFilesystem"/>.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorFileSystem.GetFilesystem">
@@ -165,6 +335,11 @@
             <para>Gets the type of the file, given the full path.</para>
             </summary>
         </member>
+        <member name="M:Godot.EditorFileSystem.UpdateScriptClasses">
+            <summary>
+            <para>Scans the script files and updates the list of custom class names.</para>
+            </summary>
+        </member>
         <member name="T:Godot.EditorFileSystemDirectory">
             <summary>
             <para>A more generalized, low-level variation of the directory concept.</para>
@@ -198,6 +373,16 @@
         <member name="M:Godot.EditorFileSystemDirectory.GetFileType(System.Int32)">
             <summary>
             <para>Returns the file extension of the file at index <c>idx</c>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFileSystemDirectory.GetFileScriptClassName(System.Int32)">
+            <summary>
+            <para>Returns the name of the script class defined in the file at index <c>idx</c>. If the file doesn't define a script class using the <c>class_name</c> syntax, this will return an empty string.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorFileSystemDirectory.GetFileScriptClassExtends(System.Int32)">
+            <summary>
+            <para>Returns the base class of the script class defined in the file at index <c>idx</c>. If the file doesn't define a script class using the <c>class_name</c> syntax, this will return an empty string.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorFileSystemDirectory.GetFileImportIsValid(System.Int32)">
@@ -243,7 +428,7 @@
                 return "my.special.plugin"
             
             func get_visible_name():
-                return "Special Mesh Importer"
+                return "Special Mesh"
             
             func get_recognized_extensions():
                 return ["special", "spec"]
@@ -272,8 +457,7 @@
                 # Fill the Mesh with data read in "file", left as an exercise to the reader
             
                 var filename = save_path + "." + get_save_extension()
-                ResourceSaver.save(filename, mesh)
-                return OK
+                return ResourceSaver.save(filename, mesh)
             </code></para>
             </summary>
         </member>
@@ -290,6 +474,20 @@
         <member name="M:Godot.EditorImportPlugin.GetImporterName">
             <summary>
             <para>Gets the unique name of the importer.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorImportPlugin.GetOptionVisibility(System.String,Godot.Collections.Dictionary)">
+            <summary>
+            <para>This method can be overridden to hide specific import options if conditions are met. This is mainly useful for hiding options that depend on others if one of them is disabled. For example:</para>
+            <para><code>
+            func get_option_visibility(option, options):
+                # Only show the lossy quality setting if the compression mode is set to "Lossy".
+                if option == "compress/lossy_quality" and options.has("compress/mode"):
+                    return int(options["compress/mode"]) == COMPRESS_LOSSY
+            
+                return true
+            </code></para>
+            <para>Return <c>true</c> to make all options always visible.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorImportPlugin.GetPresetCount">
@@ -324,22 +522,35 @@
         </member>
         <member name="M:Godot.EditorImportPlugin.GetVisibleName">
             <summary>
-            <para>Gets the name to display in the import window.</para>
+            <para>Gets the name to display in the import window. You should choose this name as a continuation to "Import as", e.g. "Import as Special Mesh".</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorImportPlugin.Import(System.String,System.String,Godot.Collections.Dictionary,Godot.Collections.Array,Godot.Collections.Array)">
+            <summary>
+            <para>Imports <c>source_file</c> into <c>save_path</c> with the import <c>options</c> specified. The <c>platform_variants</c> and <c>gen_files</c> arrays will be modified by this function.</para>
+            <para>This method must be overridden to do the actual importing work. See this class' description for an example of overriding this method.</para>
             </summary>
         </member>
         <member name="T:Godot.EditorInspector">
             <summary>
-            <para>The editor inspector is by default located on the right-hand side of the editor. It's used to edit the properties of the selected node. For example, you can select a node such as Sprite2D then edit its transform through the inspector tool. The editor inspector is an essential tool in the game development workflow.</para>
+            <para>The editor inspector is by default located on the right-hand side of the editor. It's used to edit the properties of the selected node. For example, you can select a node such as <see cref="T:Godot.Sprite"/> then edit its transform through the inspector tool. The editor inspector is an essential tool in the game development workflow.</para>
+            <para>Note: This class shouldn't be instantiated directly. Instead, access the singleton using <see cref="M:Godot.EditorInterface.GetInspector"/>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInspector.Refresh">
+            <summary>
+            <para>Refreshes the inspector.</para>
+            <para>Note: To save on CPU resources, calling this method will do nothing if the time specified in <c>docks/property_editor/auto_refresh_interval</c> editor setting hasn't passed yet since this method was last called. (By default, this interval is set to 0.3 seconds.)</para>
             </summary>
         </member>
         <member name="T:Godot.EditorInspectorPlugin">
             <summary>
-            <para>This plugins allows adding custom property editors to <see cref="T:Godot.EditorInspector"/>.</para>
+            <para>These plugins allow adding custom property editors to <see cref="T:Godot.EditorInspector"/>.</para>
             <para>Plugins are registered via <see cref="M:Godot.EditorPlugin.AddInspectorPlugin(Godot.EditorInspectorPlugin)"/>.</para>
             <para>When an object is edited, the <see cref="M:Godot.EditorInspectorPlugin.CanHandle(Godot.Object)"/> function is called and must return <c>true</c> if the object type is supported.</para>
             <para>If supported, the function <see cref="M:Godot.EditorInspectorPlugin.ParseBegin(Godot.Object)"/> will be called, allowing to place custom controls at the beginning of the class.</para>
             <para>Subsequently, the <see cref="M:Godot.EditorInspectorPlugin.ParseCategory(Godot.Object,System.String)"/> and <see cref="M:Godot.EditorInspectorPlugin.ParseProperty(Godot.Object,System.Int32,System.String,System.Int32,System.String,System.Int32)"/> are called for every category and property. They offer the ability to add custom controls to the inspector too.</para>
-            <para>Finally <see cref="M:Godot.EditorInspectorPlugin.ParseEnd"/> will be called.</para>
+            <para>Finally, <see cref="M:Godot.EditorInspectorPlugin.ParseEnd"/> will be called.</para>
             <para>On each of these calls, the "add" functions can be called.</para>
             </summary>
         </member>
@@ -386,36 +597,53 @@
         <member name="T:Godot.EditorInterface">
             <summary>
             <para>EditorInterface gives you control over Godot editor's window. It allows customizing the window, saving and (re-)loading scenes, rendering mesh previews, inspecting and editing resources and objects, and provides access to <see cref="T:Godot.EditorSettings"/>, <see cref="T:Godot.EditorFileSystem"/>, <see cref="T:Godot.EditorResourcePreview"/>, <see cref="T:Godot.ScriptEditor"/>, the editor viewport, and information about scenes.</para>
+            <para>Note: This class shouldn't be instantiated directly. Instead, access the singleton using <see cref="M:Godot.EditorPlugin.GetEditorInterface"/>.</para>
             </summary>
         </member>
-        <member name="M:Godot.EditorInterface.InspectObject(Godot.Object,System.String)">
+        <member name="P:Godot.EditorInterface.DistractionFreeMode">
             <summary>
-            <para>Shows the given property on the given <c>object</c> in the Editor's Inspector dock.</para>
+            <para>If <c>true</c>, enables distraction-free mode which hides side docks to increase the space available for the main view.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.InspectObject(Godot.Object,System.String,System.Boolean)">
+            <summary>
+            <para>Shows the given property on the given <c>object</c> in the editor's Inspector dock. If <c>inspector_only</c> is <c>true</c>, plugins will not attempt to edit <c>object</c>.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.GetSelection">
             <summary>
-            <para>Returns the <see cref="T:Godot.EditorSelection"/>.</para>
+            <para>Returns the editor's <see cref="T:Godot.EditorSelection"/> instance.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.GetEditorSettings">
             <summary>
-            <para>Returns the <see cref="T:Godot.EditorSettings"/>.</para>
+            <para>Returns the editor's <see cref="T:Godot.EditorSettings"/> instance.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.GetScriptEditor">
             <summary>
-            <para>Returns the <see cref="T:Godot.ScriptEditor"/>.</para>
+            <para>Returns the editor's <see cref="T:Godot.ScriptEditor"/> instance.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.GetBaseControl">
             <summary>
-            <para>Returns the main container of Godot editor's window. You can use it, for example, to retrieve the size of the container and place your controls accordingly.</para>
+            <para>Returns the main container of Godot editor's window. For example, you can use it to retrieve the size of the container and place your controls accordingly.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.GetEditorScale">
+            <summary>
+            <para>Returns the actual scale of the editor UI (<c>1.0</c> being 100% scale). This can be used to adjust position and dimensions of the UI added by plugins.</para>
+            <para>Note: This value is set via the <c>interface/editor/display_scale</c> and <c>interface/editor/custom_display_scale</c> editor settings. Editor must be restarted for changes to be properly applied.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.EditResource(Godot.Resource)">
             <summary>
             <para>Edits the given <see cref="T:Godot.Resource"/>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.EditNode(Godot.Node)">
+            <summary>
+            <para>Edits the given <see cref="T:Godot.Node"/>. The node will be also selected if it's inside the scene tree.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.OpenSceneFromPath(System.String)">
@@ -426,6 +654,36 @@
         <member name="M:Godot.EditorInterface.ReloadSceneFromPath(System.String)">
             <summary>
             <para>Reloads the scene at the given path.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.PlayMainScene">
+            <summary>
+            <para>Plays the main scene.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.PlayCurrentScene">
+            <summary>
+            <para>Plays the currently active scene.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.PlayCustomScene(System.String)">
+            <summary>
+            <para>Plays the scene specified by its filepath.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.StopPlayingScene">
+            <summary>
+            <para>Stops the scene that is currently playing.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.IsPlayingScene">
+            <summary>
+            <para>Returns <c>true</c> if a scene is currently being played, <c>false</c> otherwise. Paused scenes are considered as being played.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.GetPlayingScene">
+            <summary>
+            <para>Returns the name of the scene that is being played. If no scene is currently being played, returns an empty string.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.GetOpenScenes">
@@ -440,17 +698,18 @@
         </member>
         <member name="M:Godot.EditorInterface.GetResourcePreviewer">
             <summary>
-            <para>Returns the <see cref="T:Godot.EditorResourcePreview"/>.</para>
+            <para>Returns the editor's <see cref="T:Godot.EditorResourcePreview"/> instance.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.GetResourceFilesystem">
             <summary>
-            <para>Returns the <see cref="T:Godot.EditorFileSystem"/>.</para>
+            <para>Returns the editor's <see cref="T:Godot.EditorFileSystem"/> instance.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.GetEditorViewport">
             <summary>
-            <para>Returns the editor <see cref="T:Godot.Viewport"/>.</para>
+            <para>Returns the main editor control. Use this as a parent for main screens.</para>
+            <para>Note: This returns the main editor control containing the whole editor, not the 2D or 3D viewports specifically.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.MakeMeshPreviews(Godot.Collections.Array,System.Int32)">
@@ -463,6 +722,21 @@
             <para>Selects the file, with the path provided by <c>file</c>, in the FileSystem dock.</para>
             </summary>
         </member>
+        <member name="M:Godot.EditorInterface.GetSelectedPath">
+            <summary>
+            <para>Returns the path of the directory currently selected in the <see cref="T:Godot.FileSystemDock"/>. If a file is selected, its base directory will be returned using <c>String.get_base_dir</c> instead.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.GetCurrentPath">
+            <summary>
+            <para>Returns the current path being viewed in the <see cref="T:Godot.FileSystemDock"/>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.GetFileSystemDock">
+            <summary>
+            <para>Returns the editor's <see cref="T:Godot.FileSystemDock"/> instance.</para>
+            </summary>
+        </member>
         <member name="M:Godot.EditorInterface.SetPluginEnabled(System.String,System.Boolean)">
             <summary>
             <para>Sets the enabled status of a plugin. The plugin name is the same as its directory name.</para>
@@ -470,7 +744,12 @@
         </member>
         <member name="M:Godot.EditorInterface.IsPluginEnabled(System.String)">
             <summary>
-            <para>Returns the enabled status of a plugin. The plugin name is the same as its directory name.</para>
+            <para>Returns <c>true</c> if the specified <c>plugin</c> is enabled. The plugin name is the same as its directory name.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.GetInspector">
+            <summary>
+            <para>Returns the editor's <see cref="T:Godot.EditorInspector"/> instance.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorInterface.SaveScene">
@@ -481,6 +760,11 @@
         <member name="M:Godot.EditorInterface.SaveSceneAs(System.String,System.Boolean)">
             <summary>
             <para>Saves the scene as a file at <c>path</c>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorInterface.SetMainScreenEditor(System.String)">
+            <summary>
+            <para>Sets the editor's current main screen to the one specified in <c>name</c>. <c>name</c> must match the text of the tab in question exactly (<c>2D</c>, <c>3D</c>, <c>Script</c>, <c>AssetLib</c>).</para>
             </summary>
         </member>
         <member name="T:Godot.EditorPlugin">
@@ -497,6 +781,12 @@
             <summary>
             <para>This method is called when the editor is about to save the project, switch to another tab, etc. It asks the plugin to apply any pending state changes to ensure consistency.</para>
             <para>This is used, for example, in shader editors to let the plugin know that it must apply the shader code being written by the user to the object.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorPlugin.Build">
+            <summary>
+            <para>This method is called when the editor is about to run the project. The plugin can then perform required operations before the project runs.</para>
+            <para>This method must return a boolean. If this method returns <c>false</c>, the project will not run. The run is aborted immediately, so this also prevents all other plugins' <see cref="M:Godot.EditorPlugin.Build"/> methods from running.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorPlugin.Clear">
@@ -519,6 +809,29 @@
             <para>Called by the engine when the user enables the <see cref="T:Godot.EditorPlugin"/> in the Plugin tab of the project settings window.</para>
             </summary>
         </member>
+        <member name="M:Godot.EditorPlugin.ForwardCanvasDrawOverViewport(Godot.Control)">
+            <summary>
+            <para>Called by the engine when the 2D editor's viewport is updated. Use the <c>overlay</c> <see cref="T:Godot.Control"/> for drawing. You can update the viewport manually by calling <see cref="M:Godot.EditorPlugin.UpdateOverlays"/>.</para>
+            <para><code>
+            func forward_canvas_draw_over_viewport(overlay):
+                # Draw a circle at cursor position.
+                overlay.draw_circle(overlay.get_local_mouse_position(), 64, Color.white)
+            
+            func forward_canvas_gui_input(event):
+                if event is InputEventMouseMotion:
+                    # Redraw viewport when cursor is moved.
+                    update_overlays()
+                    return true
+                return false
+            </code></para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorPlugin.ForwardCanvasForceDrawOverViewport(Godot.Control)">
+            <summary>
+            <para>This method is the same as <see cref="M:Godot.EditorPlugin.ForwardCanvasDrawOverViewport(Godot.Control)"/>, except it draws on top of everything. Useful when you need an extra layer that shows over anything else.</para>
+            <para>You need to enable calling of this method by using <see cref="M:Godot.EditorPlugin.SetForceDrawOverForwardingEnabled"/>.</para>
+            </summary>
+        </member>
         <member name="M:Godot.EditorPlugin.ForwardCanvasGuiInput(Godot.InputEvent)">
             <summary>
             <para>Called when there is a root node in the current edited scene, <see cref="M:Godot.EditorPlugin.Handles(Godot.Object)"/> is implemented and an <see cref="T:Godot.InputEvent"/> happens in the 2D viewport. Intercepts the <see cref="T:Godot.InputEvent"/>, if <c>return true</c> <see cref="T:Godot.EditorPlugin"/> consumes the <c>event</c>, otherwise forwards <c>event</c> to other Editor classes. Example:</para>
@@ -537,6 +850,29 @@
                     forward = true
                 return forward
             </code></para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorPlugin.ForwardSpatialDrawOverViewport(Godot.Control)">
+            <summary>
+            <para>Called by the engine when the 3D editor's viewport is updated. Use the <c>overlay</c> <see cref="T:Godot.Control"/> for drawing. You can update the viewport manually by calling <see cref="M:Godot.EditorPlugin.UpdateOverlays"/>.</para>
+            <para><code>
+            func forward_spatial_draw_over_viewport(overlay):
+                # Draw a circle at cursor position.
+                overlay.draw_circle(overlay.get_local_mouse_position(), 64)
+            
+            func forward_spatial_gui_input(camera, event):
+                if event is InputEventMouseMotion:
+                    # Redraw viewport when cursor is moved.
+                    update_overlays()
+                    return true
+                return false
+            </code></para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorPlugin.ForwardSpatialForceDrawOverViewport(Godot.Control)">
+            <summary>
+            <para>This method is the same as <see cref="M:Godot.EditorPlugin.ForwardSpatialDrawOverViewport(Godot.Control)"/>, except it draws on top of everything. Useful when you need an extra layer that shows over anything else.</para>
+            <para>You need to enable calling of this method by using <see cref="M:Godot.EditorPlugin.SetForceDrawOverForwardingEnabled"/>.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorPlugin.ForwardSpatialGuiInput(Godot.Camera,Godot.InputEvent)">
@@ -699,7 +1035,7 @@
         </member>
         <member name="M:Godot.EditorPlugin.UpdateOverlays">
             <summary>
-            <para>Updates the overlays of the editor (2D/3D) viewport.</para>
+            <para>Updates the overlays of the 2D and 3D editor viewport. Causes methods <see cref="M:Godot.EditorPlugin.ForwardCanvasDrawOverViewport(Godot.Control)"/>, <see cref="M:Godot.EditorPlugin.ForwardCanvasForceDrawOverViewport(Godot.Control)"/>, <see cref="M:Godot.EditorPlugin.ForwardSpatialDrawOverViewport(Godot.Control)"/> and <see cref="M:Godot.EditorPlugin.ForwardSpatialForceDrawOverViewport(Godot.Control)"/> to be called.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorPlugin.GetUndoRedo">
@@ -712,9 +1048,19 @@
             <para>Queue save the project's editor layout.</para>
             </summary>
         </member>
+        <member name="M:Godot.EditorPlugin.AddExportPlugin(Godot.EditorExportPlugin)">
+            <summary>
+            <para>Registers a new export plugin. Export plugins are used when the project is being exported. See <see cref="T:Godot.EditorExportPlugin"/> for more information.</para>
+            </summary>
+        </member>
         <member name="M:Godot.EditorPlugin.SetInputEventForwardingAlwaysEnabled">
             <summary>
             <para>Use this method if you always want to receive inputs from 3D view screen inside <see cref="M:Godot.EditorPlugin.ForwardSpatialGuiInput(Godot.Camera,Godot.InputEvent)"/>. It might be especially usable if your plugin will want to use raycast in the scene.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorPlugin.SetForceDrawOverForwardingEnabled">
+            <summary>
+            <para>Enables calling of <see cref="M:Godot.EditorPlugin.ForwardCanvasForceDrawOverViewport(Godot.Control)"/> for the 2D editor and <see cref="M:Godot.EditorPlugin.ForwardSpatialForceDrawOverViewport(Godot.Control)"/> for the 3D editor when their viewports are updated. You need to call this method only once and it will work permanently for this plugin.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorPlugin.GetEditorInterface">
@@ -735,32 +1081,32 @@
         </member>
         <member name="P:Godot.EditorProperty.Label">
             <summary>
-            <para>Sets this property to change the label (if you want to show one).</para>
+            <para>Set this property to change the label (if you want to show one).</para>
             </summary>
         </member>
         <member name="P:Godot.EditorProperty.ReadOnly">
             <summary>
-            <para>Used by the inspector, when the property is read-only.</para>
+            <para>Used by the inspector, set to <c>true</c> when the property is read-only.</para>
             </summary>
         </member>
         <member name="P:Godot.EditorProperty.Checkable">
             <summary>
-            <para>Used by the inspector, set when property is checkable.</para>
+            <para>Used by the inspector, set to <c>true</c> when the property is checkable.</para>
             </summary>
         </member>
         <member name="P:Godot.EditorProperty.Checked">
             <summary>
-            <para>Used by the inspector, when the property is checked.</para>
+            <para>Used by the inspector, set to <c>true</c> when the property is checked.</para>
             </summary>
         </member>
         <member name="P:Godot.EditorProperty.DrawRed">
             <summary>
-            <para>Used by the inspector, when the property must draw with error color.</para>
+            <para>Used by the inspector, set to <c>true</c> when the property must draw with error color. This is used for editable children's properties.</para>
             </summary>
         </member>
         <member name="P:Godot.EditorProperty.Keying">
             <summary>
-            <para>Used by the inspector, when the property can add keys for animation.</para>
+            <para>Used by the inspector, set to <c>true</c> when the property can add keys for animation.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorProperty.UpdateProperty">
@@ -801,6 +1147,7 @@
         <member name="T:Godot.EditorResourcePreview">
             <summary>
             <para>This object is used to generate previews for resources of files.</para>
+            <para>Note: This class shouldn't be instantiated directly. Instead, access the singleton using <see cref="M:Godot.EditorInterface.GetResourcePreviewer"/>.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorResourcePreview.QueueResourcePreview(System.String,Godot.Object,System.String,System.Object)">
@@ -864,9 +1211,9 @@
             <para>Returns <c>true</c> if your generator supports the resource of type <c>type</c>.</para>
             </summary>
         </member>
-        <member name="T:Godot.EditorSceneImporterAssimp">
+        <member name="T:Godot.EditorSceneImporterFBX">
             <summary>
-            <para>This is an FBX 3D asset importer based on <a href="http://assimp.org/">Assimp</a>. It currently has many known limitations and works best with static meshes. Most animated meshes won't import correctly.</para>
+            <para>This is an FBX 3D asset importer with full support for most FBX features.</para>
             <para>If exporting a FBX scene from Autodesk Maya, use these FBX export settings:</para>
             <para><code>
             - Smoothing Groups
@@ -968,6 +1315,7 @@
         <member name="T:Godot.EditorSelection">
             <summary>
             <para>This object manages the SceneTree selection in the editor.</para>
+            <para>Note: This class shouldn't be instantiated directly. Instead, access the singleton using <see cref="M:Godot.EditorInterface.GetSelection"/>.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSelection.Clear">
@@ -978,6 +1326,7 @@
         <member name="M:Godot.EditorSelection.AddNode(Godot.Node)">
             <summary>
             <para>Adds a node to the selection.</para>
+            <para>Note: The newly selected node will not be automatically edited in the inspector. If you want to edit a node, use <see cref="M:Godot.EditorInterface.EditNode(Godot.Node)"/>.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSelection.RemoveNode(Godot.Node)">
@@ -998,22 +1347,58 @@
         <member name="T:Godot.EditorSettings">
             <summary>
             <para>Object that holds the project-independent editor settings. These settings are generally visible in the Editor &gt; Editor Settings menu.</para>
-            <para>Accessing the settings is done by using the regular <see cref="T:Godot.Object"/> API, such as:</para>
+            <para>Property names use slash delimiters to distinguish sections. Setting values can be of any <c>Variant</c> type. It's recommended to use <c>snake_case</c> for editor settings to be consistent with the Godot editor itself.</para>
+            <para>Accessing the settings can be done using the following methods, such as:</para>
             <para><code>
-            settings.set(prop,value)
-            settings.get(prop)
-            list_of_settings = settings.get_property_list()
+            # `settings.set("some/property", value)` also works as this class overrides `_set()` internally.
+            settings.set_setting("some/property",value)
+            
+            # `settings.get("some/property", value)` also works as this class overrides `_get()` internally.
+            settings.get_setting("some/property")
+            
+            var list_of_settings = settings.get_property_list()
             </code></para>
+            <para>Note: This class shouldn't be instantiated directly. Instead, access the singleton using <see cref="M:Godot.EditorInterface.GetEditorSettings"/>.</para>
             </summary>
         </member>
         <member name="F:Godot.EditorSettings.NotificationEditorSettingsChanged">
             <summary>
-            <para>Emitted when editor settings change. It used by various editor plugins to update their visuals on theme changes or logic on configuration changes.</para>
+            <para>Emitted after any editor setting has changed. It's used by various editor plugins to update their visuals on theme changes or logic on configuration changes.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSettings.HasSetting(System.String)">
+            <summary>
+            <para>Returns <c>true</c> if the setting specified by <c>name</c> exists, <c>false</c> otherwise.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSettings.SetSetting(System.String,System.Object)">
+            <summary>
+            <para>Sets the <c>value</c> of the setting specified by <c>name</c>. This is equivalent to using <see cref="M:Godot.Object.Set(System.String,System.Object)"/> on the EditorSettings instance.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSettings.GetSetting(System.String)">
+            <summary>
+            <para>Returns the value of the setting specified by <c>name</c>. This is equivalent to using <see cref="M:Godot.Object.Get(System.String)"/> on the EditorSettings instance.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSettings.Erase(System.String)">
             <summary>
-            <para>Erase a given setting (pass full property path).</para>
+            <para>Erases the setting whose name is specified by <c>property</c>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSettings.SetInitialValue(System.String,System.Object,System.Boolean)">
+            <summary>
+            <para>Sets the initial value of the setting specified by <c>name</c> to <c>value</c>. This is used to provide a value for the Revert button in the Editor Settings. If <c>update_current</c> is true, the current value of the setting will be set to <c>value</c> as well.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSettings.PropertyCanRevert(System.String)">
+            <summary>
+            <para>Returns <c>true</c> if the setting specified by <c>name</c> can have its value reverted to the default value, <c>false</c> otherwise. When this method returns <c>true</c>, a Revert button will display next to the setting in the Editor Settings.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSettings.PropertyGetRevert(System.String)">
+            <summary>
+            <para>Returns the default value of the setting specified by <c>name</c>. This is the value that would be applied when clicking the Revert button in the Editor Settings.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSettings.AddPropertyInfo(Godot.Collections.Dictionary)">
@@ -1046,7 +1431,17 @@
         </member>
         <member name="M:Godot.EditorSettings.GetProjectSettingsDir">
             <summary>
-            <para>Gets the specific project settings path. Projects all have a unique sub-directory inside the settings path where project specific settings are saved.</para>
+            <para>Returns the project-specific settings path. Projects all have a unique subdirectory inside the settings path where project-specific settings are saved.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSettings.SetProjectMetadata(System.String,System.String,System.Object)">
+            <summary>
+            <para>Sets project-specific metadata with the <c>section</c>, <c>key</c> and <c>data</c> specified. This metadata is stored outside the project folder and therefore won't be checked into version control. See also <see cref="M:Godot.EditorSettings.GetProjectMetadata(System.String,System.String,System.Object)"/>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSettings.GetProjectMetadata(System.String,System.String,System.Object)">
+            <summary>
+            <para>Returns project-specific metadata for the <c>section</c> and <c>key</c> specified. If the metadata doesn't exist, <c>default</c> will be returned instead. See also <see cref="M:Godot.EditorSettings.SetProjectMetadata(System.String,System.String,System.Object)"/>.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSettings.SetFavorites(System.String[])">
@@ -1056,7 +1451,7 @@
         </member>
         <member name="M:Godot.EditorSettings.GetFavorites">
             <summary>
-            <para>Gets the list of favorite files and directories for this project.</para>
+            <para>Returns the list of favorite files and directories for this project.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSettings.SetRecentDirs(System.String[])">
@@ -1066,7 +1461,7 @@
         </member>
         <member name="M:Godot.EditorSettings.GetRecentDirs">
             <summary>
-            <para>Gets the list of recently visited folders in the file dialog for this project.</para>
+            <para>Returns the list of recently visited folders in the file dialog for this project.</para>
             </summary>
         </member>
         <member name="T:Godot.EditorSpatialGizmo">
@@ -1093,12 +1488,12 @@
         </member>
         <member name="M:Godot.EditorSpatialGizmo.IsHandleHighlighted(System.Int32)">
             <summary>
-            <para>Gets whether a handle is highlighted or not.</para>
+            <para>Returns <c>true</c> if the handle at index <c>index</c> is highlighted by being hovered with the mouse.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSpatialGizmo.Redraw">
             <summary>
-            <para>This function is called when the Spatial this gizmo refers to changes (the <see cref="M:Godot.Spatial.UpdateGizmo"/> is called).</para>
+            <para>This function is called when the <see cref="T:Godot.Spatial"/> this gizmo refers to changes (the <see cref="M:Godot.Spatial.UpdateGizmo"/> is called).</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSpatialGizmo.SetHandle(System.Int32,Godot.Camera,Godot.Vector2)">
@@ -1112,6 +1507,16 @@
             <para>Adds lines to the gizmo (as sets of 2 points), with a given material. The lines are used for visualizing the gizmo. Call this function during <see cref="M:Godot.EditorSpatialGizmo.Redraw"/>.</para>
             </summary>
             <param name="modulate">If the parameter is null, then the default value is new Color(1, 1, 1, 1)</param>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmo.AddMesh(Godot.ArrayMesh,System.Boolean,Godot.SkinReference,Godot.Material)">
+            <summary>
+            <para>Adds a mesh to the gizmo with the specified <c>billboard</c> state, <c>skeleton</c> and <c>material</c>. If <c>billboard</c> is <c>true</c>, the mesh will rotate to always face the camera. Call this function during <see cref="M:Godot.EditorSpatialGizmo.Redraw"/>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmo.AddCollisionSegments(Godot.Vector3[])">
+            <summary>
+            <para>Adds the specified <c>segments</c> to the gizmo's collision shape for picking. Call this function during <see cref="M:Godot.EditorSpatialGizmo.Redraw"/>.</para>
+            </summary>
         </member>
         <member name="M:Godot.EditorSpatialGizmo.AddCollisionTriangles(Godot.TriangleMesh)">
             <summary>
@@ -1130,6 +1535,11 @@
             <para>There are virtual functions which will be called upon editing of these handles. Call this function during <see cref="M:Godot.EditorSpatialGizmo.Redraw"/>.</para>
             </summary>
         </member>
+        <member name="M:Godot.EditorSpatialGizmo.SetSpatialNode(Godot.Node)">
+            <summary>
+            <para>Sets the reference <see cref="T:Godot.Spatial"/> node for the gizmo. <c>node</c> must inherit from <see cref="T:Godot.Spatial"/>.</para>
+            </summary>
+        </member>
         <member name="M:Godot.EditorSpatialGizmo.GetSpatialNode">
             <summary>
             <para>Returns the Spatial node associated with this gizmo.</para>
@@ -1138,6 +1548,16 @@
         <member name="M:Godot.EditorSpatialGizmo.GetPlugin">
             <summary>
             <para>Returns the <see cref="T:Godot.EditorSpatialGizmoPlugin"/> that owns this gizmo. It's useful to retrieve materials using <see cref="M:Godot.EditorSpatialGizmoPlugin.GetMaterial(System.String,Godot.EditorSpatialGizmo)"/>.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmo.Clear">
+            <summary>
+            <para>Removes everything in the gizmo including meshes, collisions and handles.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.EditorSpatialGizmo.SetHidden(System.Boolean)">
+            <summary>
+            <para>Sets the gizmo's hidden state. If <c>true</c>, the gizmo will be hidden. If <c>false</c>, it will be shown.</para>
             </summary>
         </member>
         <member name="T:Godot.EditorSpatialGizmoPlugin">
@@ -1175,6 +1595,12 @@
             <para>Override this method to provide the name that will appear in the gizmo visibility menu.</para>
             </summary>
         </member>
+        <member name="M:Godot.EditorSpatialGizmoPlugin.GetPriority">
+            <summary>
+            <para>Override this method to set the gizmo's priority. Higher values correspond to higher priority. If a gizmo with higher priority conflicts with another gizmo, only the gizmo with higher priority will be used.</para>
+            <para>All built-in editor gizmos return a priority of <c>-1</c>. If not overridden, this method will return <c>0</c>, which means custom gizmos will automatically override built-in gizmos.</para>
+            </summary>
+        </member>
         <member name="M:Godot.EditorSpatialGizmoPlugin.HasGizmo(Godot.Spatial)">
             <summary>
             <para>Override this method to define which Spatial nodes have a gizmo from this plugin. Whenever a <see cref="T:Godot.Spatial"/> node is added to a scene this method is called, if it returns <c>true</c> the node gets a generic <see cref="T:Godot.EditorSpatialGizmo"/> assigned and is added to this plugin's list of active gizmos.</para>
@@ -1187,7 +1613,7 @@
         </member>
         <member name="M:Godot.EditorSpatialGizmoPlugin.IsSelectableWhenHidden">
             <summary>
-            <para>Override this method to define whether Spatial with this gizmo should be selecteble even when the gizmo is hidden.</para>
+            <para>Override this method to define whether a Spatial with this gizmo should be selectable even when the gizmo is hidden.</para>
             </summary>
         </member>
         <member name="M:Godot.EditorSpatialGizmoPlugin.Redraw(Godot.EditorSpatialGizmo)">
@@ -1248,7 +1674,7 @@
         </member>
         <member name="M:Godot.EditorVCSInterface.GetModifiedFilesData">
             <summary>
-            <para>Returns a <see cref="T:Godot.Collections.Dictionary"/> containing the path of the detected file change mapped to an integer signifying what kind of a change the corresponding file has experienced.</para>
+            <para>Returns a <see cref="T:Godot.Collections.Dictionary"/> containing the path of the detected file change mapped to an integer signifying what kind of change the corresponding file has experienced.</para>
             <para>The following integer values are being used to signify that the detected file is:</para>
             <para>- <c>0</c>: New to the VCS working directory</para>
             <para>- <c>1</c>: Modified</para>
@@ -1315,6 +1741,11 @@
             <para>Prefills required fields to configure the ScriptCreateDialog for use.</para>
             </summary>
         </member>
+        <member name="T:Godot.ScriptEditor">
+            <summary>
+            <para>Note: This class shouldn't be instantiated directly. Instead, access the singleton using <see cref="M:Godot.EditorInterface.GetScriptEditor"/>.</para>
+            </summary>
+        </member>
         <member name="M:Godot.ScriptEditor.GotoLine(System.Int32)">
             <summary>
             <para>Goes to the specified line in the current script.</para>
@@ -1328,6 +1759,11 @@
         <member name="M:Godot.ScriptEditor.GetOpenScripts">
             <summary>
             <para>Returns an array with all <see cref="T:Godot.Script"/> objects which are currently open in editor.</para>
+            </summary>
+        </member>
+        <member name="M:Godot.ScriptEditor.OpenScriptCreateDialog(System.String,System.String)">
+            <summary>
+            <para>Opens the script create dialog. The script will extend <c>base_name</c>. The file extension can be omitted from <c>base_path</c>. It will be added based on the selected scripting language.</para>
             </summary>
         </member>
         <member name="M:Godot.VisualScriptEditor.AddCustomNode(System.String,System.String,Godot.Script)">
